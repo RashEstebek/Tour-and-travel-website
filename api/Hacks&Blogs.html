@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="cssHacks/style.min.css">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+	<!-- font awesome cdn link  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<!--это сслыка на бутстарп-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+
+	<title>Hacks&Blogs</title>
+
+
+	<style>
+		@media(max-width: 991.5px) {
+			.col-lg-4 {
+				margin-top: 40px;
+				margin-bottom: 20px
+			}
+		}
+
+		@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+		:root{
+			--orange:#ffa500;
+		}
+
+		*{
+			font-family: 'Nunito', sans-serif;
+			margin:0; padding:0;
+			box-sizing: border-box;
+			text-transform: capitalize;
+			outline: none; border:none;
+			text-decoration: none;
+			transition: all .2s linear;
+		}
+
+		*::selection{
+			background:var(--orange);
+			color:#fff;
+		}
+
+		html{
+			height: 100%;
+			font-size: 62.5%;
+			overflow-x: hidden;
+			scroll-padding-top: 6rem;
+			scroll-behavior: smooth;
+		}
+
+		body {
+			height: 100%;
+		}
+
+		section{
+			padding:2rem 9%;
+		}
+
+		header{
+			top:0; left: 0; right:0;
+			background:#333;
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding:2rem 9%;
+		}
+
+		header .logo{
+			font-size: 2.5rem;
+			font-weight: bolder;
+			color:#fff;
+			text-transform: uppercase;
+		}
+
+		header .logo span{
+			color:var(--orange);
+		}
+
+		header .navbar a{
+			color:#fff;
+			font-size: 2rem;
+			margin:0 .8rem;
+		}
+
+		header .navbar a:hover{
+			color:var(--orange);
+		}
+
+		header .icons a{
+			font-size: 2.5rem;
+			color:#fff;
+			cursor: pointer;
+			margin-right: 2rem;
+		}
+
+		header .icons a:hover{
+			color:var(--orange);
+		}
+
+		#menu-bar{
+			color:#fff;
+			border:.1rem solid #fff;
+			border-radius: .5rem;
+			font-size: 3rem;
+			padding:.5rem 1.2rem;
+			cursor: pointer;
+			display: none;
+		}
+
+		.footer .box-container .box h3{
+			font-size: 2.5rem;
+			padding:.7rem 0;
+			color:#fff;
+		}
+
+		.footer .box-container .box p{
+			font-size: 1.5rem;
+			padding:.7rem 0;
+			color:#eee;
+		}
+
+		.footer .box-container .box a{
+			display: block;
+			font-size: 1.5rem;
+			padding:.7rem 0;
+			color:#eee;
+		}
+
+		.footer .box-container .box a:hover{
+			color:var(--orange);
+			text-decoration: underline;
+		}
+
+		.footer .credit span {
+			color: var(--orange)
+		}
+
+		/* media queries  */
+
+		@media (max-width:1200px){
+
+			html{
+				font-size: 55%;
+			}
+
+		}
+
+		@media (max-width:991px){
+
+			header{
+				padding:2rem;
+			}
+
+			section{
+				padding:2rem;
+			}
+
+		}
+
+		@media (max-width:768px){
+
+			#menu-bar{
+				display: initial;
+			}
+
+			header .navbar{
+				position: absolute;
+				top:100%; right:0; left: 0;
+				background: #333;
+				border-top: .1rem solid rgba(255,255,255,.2);
+				padding:1rem 2rem;
+				clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+			}
+
+			header .navbar.active{
+				clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+			}
+
+			header .navbar a{
+				display: block;
+				border-radius: .5rem;
+				padding:1.5rem;
+				margin:1.5rem 0;
+				background:#222;
+			}
+		}
+
+		@media (max-width:450px){
+
+			html{
+				font-size: 50%;
+			}
+
+			.heading span{
+				font-size: 2.5rem;
+			}
+
+			.contact .row form .inputBox input{
+				width:100%;
+			}
+
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<header>
+
+			<div id="menu-bar" class="fas fa-bars"></div>
+
+			<a href="/" class="logo">Dem<span>AL</span></a>
+
+			<nav class="navbar">
+				<a href="/">Home</a>
+				<a href="/#book">Book</a>
+				<a href="/contact_us">Contact</a>
+				<a href="/news_general">News</a>
+				<a href="#">Hacks&Blogs</a>
+			</nav>
+
+			<div class="icons">
+				<a class="fas fa-user" id="login-btn" href="/login"></a>
+			</div>
+		</header>
+
+		<page class="content">
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://img.besthqwallpapers.com/Uploads/25-8-2017/19379/kazakh-flag-kazakhstan-asia-flag-of-kazakhstan-silk-flag.jpg"
+								alt="cover">
+						</div>
+						<h1 class="imageblock__title">Top 7 Visit places in Kazakhstan</h1>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							Kazakhstan is a big and vast. Thanks for that you will find diverse landscapes throughout
+							the country. Forests and fields in the north, endless steppe in the Center, mountains in the
+							East and South, glaciers in the South, deserts in the West. Here is a list of top 5 must see
+							places in Kazakhstan in my personal view.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://newsroom.kz/wp-content/uploads/2020/10/47a7dc6c1a242a681848dd639560187c.jpeg"
+								alt="cover">
+						</div>
+						<h2 class="imageblock__title">Almaty city</h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							Almaty has unique architecture with old and new. Walk around in the city center, at the
+							number of green parks, go to Kok-Tobe hill by cable car where you’ll find best view to the
+							whole city. Enjoy good food and drinks in numerous cafe and restaurants. When you tired of
+							the city, head to the mountains! Part of Tien-Shan mountains which is called Alatau
+							mountains is just 15 minutes drive from the city. Try ice skiing at Medeu ice rink at
+							evelatin of 1,691 m above sea level. Higher to the mountains the Shymbulak ski resort is
+							located. In winter you may enjoy the skiing at elevation of 2,000-3,200 m above sea level.
+							If you don’t ski, there are plenty of hiking paths to the mountains, where you’ll see
+							outstanding beauties of the nature. For example, the Big Almaty Lake.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://avatars.mds.yandex.net/i?id=52ace1db50e728bc440a1d2fae416097-5878037-images-thumbs&n=13"
+								alt="cover">
+						</div>
+						<h2 class="imageblock__title">Sharyn canyon </h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							Sharyn canyon is located 200 km east from Almaty and it takes around 3-3,5 hours of drive to
+							get there. It is vast canyon, something around 150 km long in total. But most visitors come
+							to particular part of the canyon called Valley of Castles, which is a 2 km long walk. During
+							the summer there is a cafe and lodges at the end of the 2 km walk. You may also camp there.
+							Sharyn canyon sometimes called as a little Grand Canyon and it definitely worth to visit.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://pbs.twimg.com/media/DUeiRYsW4AI2Wno.jpg" alt="cover">
+						</div>
+						<h2 class="imageblock__title">Aisha-Bibi Mausoleum </h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							Aisha-Bibi Mausoleum located just outside of Taraz city in South Kazakhstan. The Mausoleum
+							is small by size, but it is one of the most beautiful ones I’ve ever seen. Built in 12th
+							century, the Mausoleum is dedicated to young woman Aisha, who was died while traveling to
+							her fiance, a powerful local ruler Karakhan. In Taraz city center you’ll also find mausoleum
+							of Karakhan itself.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://cdn.nur.kz/images/1120x630/200f79a5f06ec723.jpeg?version=1" alt="cover">
+						</div>
+						<h2 class="imageblock__title">The Mausoleum of Khoja Ahmed Yasawi</h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							The Mausoleum is located in Turkestan city in South Kazakhstan and it’s first UNESCO World
+							Heritage Site in Kazakhstan. Turkestan city has had its importance for long time in Kazakh
+							history. During the Kazakh Khanate it was most important and capital city. Khoja Ahmed
+							Yasawi lived in 12th century and was one of the greatest sufi in the region (Sufism is a
+							mystic movement in Islam). The Mausoleum is unfinished and was built in 14th century by
+							order of Amir Timur. The Mausoleum has biggest dome in entire Central Asia.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://cdn.nur.kz/images/1120x630/d7a260f1aec273bf.jpeg?version=2" alt="cover">
+						</div>
+						<h2 class="imageblock__title">Akmeshit Cave</h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							Located 100 km north from Shymkent city in South Kazakhstan. You will be amazed by the size
+							of this cave, in fact, it’s rather a grotto — 150 m long, around 70 m wide and 30 m high.
+							The entrance is a huge hole in the surface of a hill. There are some plants inside the cave
+							and temperature is comparatively cool.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://pbs.twimg.com/media/DmKyQZeVsAACKz9.jpg" alt="cover">
+						</div>
+						<h2 class="imageblock__title"> Burabay National Park</h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							If you like pine forests, lakes and developed touristic infrastructure, then the Burabay
+							National Park is right for you. Located some 200 km north from Astana (capital city), the
+							place offers variety of accomodation options from 5-star Rixos Hotel to budget local home
+							stays. Burabay is popular among Astana folks during summer time. Often this park is called
+							as Kazakhstani Switzerland.
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="main-block">
+				<div class="main-block__container container">
+					<div class="main-block__imageblock imageblock">
+						<div class="imageblock__bg ibg">
+							<img src="https://sputnik.kz/images/03/81/038183.jpg" alt="cover">
+						</div>
+						<h2 class="imageblock__title"> Bayanaul National Park</h2>
+					</div>
+					<div class="main-block__body">
+						<div class="main-block__text">
+							For me, Bayanaul National Park is one of the best places in Kazakhstan. Located in
+							north-east of Kazakhstan, the Park is vast and has beautiful landscapes, lakes and rocks.
+							You may camp deep in the forest, hike around and enjoy outstanding scenery. Some rocks in
+							the Park have funny formations, which makes them a touristic attraction.
+						</div>
+					</div>
+				</div>
+			</section>
+		</page>
+
+
+		<!-- footer section  -->
+
+		<footer class="bg-grey">
+			<div class="container py-1">
+				<div class="row py-1">
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0"><img src="logo.jpg" alt="" width="180" class="mb-3">
+						<p class="font-italic text-muted">Travel extends your horizon.</p>
+						<ul class="list-inline mt-4">
+							<li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
+							<li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
+							<li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
+							<li class="list-inline-item"><a href="#" target="_blank" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
+							<li class="list-inline-item"><a href="#" target="_blank" title="vimeo"><i class="fa fa-vimeo"></i></a></li>
+						</ul>
+					</div>
+					<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+						<h3 class="text-uppercase font-weight-bold mb-4">Travel</h3>
+						<ul class="list-unstyled mb-0">
+							<li class="mb-2"><a href="NewsGeneral.html" class="text-muted">News</a></li>
+							<li class="mb-2"><a href="#" class="text-muted">Hacks&Blogs</a></li>
+							<li class="mb-2"><a href="booking.html" class="text-muted">Booking</a></li>
+							<li class="mb-2"><a href="#" class="text-muted">Contacts</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+						<h3 class="text-uppercase font-weight-bold mb-4">Company</h3>
+						<ul class="list-unstyled mb-0">
+							<li class="mb-2"><a href="#" class="text-muted">Login</a></li>
+							<li class="mb-2"><a href="#" class="text-muted">Register</a></li>
+							<li class="mb-2"><a href="#" class="text-muted">Wishlist</a></li>
+							<li class="mb-2"><a href="#" class="text-muted">Our Products</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-4 col-md-6 mb-lg-0">
+						<h3 class="text-uppercase font-weight-bold mb-4">Newsletter</h3>
+						<p class="text-muted mb-4">Travel extends your horizon.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Copyrights -->
+			<div class="container text-center">
+				<p class="text-muted mb-2">© 2022 DemAl All rights reserved.</p>
+
+			</div>
+			<style>
+				footer{
+					background-color: #33383c;
+					padding:30px 0px;
+					font-size: 150%;
+					position: relative;
+				}
+
+
+				footer ul li{
+					padding:5px 0px;
+				}
+			</style>
+		</footer>
+
+		<!-- Footer -->
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+		integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="jsHacks/jquery-3.6.0.min.js"></script>
+	<script src="jsHacks/script.js"></script>
+
+	<script>
+		let menu = document.querySelector('#menu-bar');
+		let navbar = document.querySelector('.navbar');
+
+		window.onscroll = () =>{
+			menu.classList.remove('fa-times');
+			navbar.classList.remove('active');
+		}
+
+		menu.addEventListener('click', () =>{
+			menu.classList.toggle('fa-times');
+			navbar.classList.toggle('active');
+		});
+	</script>
+
+</body>
+
+</html>

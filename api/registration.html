@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DemAl</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        header a{
+            text-decoration: none;
+        }
+
+        header{
+            padding: 0 20px;
+            background-color: #33383c;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #brand {
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        #brand a{
+            color: white;
+        }
+        #brand a span{
+            color: darkorange;
+        }
+
+        header ul {
+            list-style: none;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        header ul a {
+            color: white;
+        }
+
+        header ul li {
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        header ul li:hover {
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+
+        #signup a {
+            color: #ff3860;
+        }
+
+        #login a {
+            color: black;
+        }
+
+        #hamburger-icon {
+            margin: auto 0;
+            display: none;
+            cursor: pointer;
+        }
+
+        #hamburger-icon div {
+            width: 35px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .open .mobile-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            height: calc(100vh - 50px);
+            width: 100%;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 10px;
+        }
+
+        html{
+            overflow-x: hidden;
+            scroll-padding-top: 6rem;
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body{
+            height: 200rem;
+        }
+
+        .home .content h3{
+            font-size: 6.5rem;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            text-shadow: 0 .3rem .5rem black;
+        }
+
+        .home .video-container video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .heading span{
+            font-size: 3.5rem;
+            background: rgba(255,155,0,.2);
+            color: cornflowerblue;
+            border-radius: .5rem;
+            padding: .2rem 1rem;
+        }
+
+
+        .home .content p{
+            font-size: 2.5rem;
+            color: #FFFFFF;
+            padding: .5rem 0;
+        }
+
+        .btn{
+            display: inline-block;
+            background: cornflowerblue;
+            color: #FFFFFF;
+            padding: .6rem 3rem;
+            cursor: pointer;
+            font-size: 1.7rem;
+        }
+
+        section{
+            padding: 2rem 9%;
+        }
+
+
+        .book .row .img img{
+            width: 100%;
+            height: 500px;
+        }
+
+        .book .row form{
+            flex: 1 1 40rem;
+            padding: 2rem;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+            border-radius: .5rem;
+        }
+
+
+        .book .row form .inputBox input{
+            width: 100%;
+            padding: 1rem;
+            border: .1rem solid rgba(0,0,0,.1);
+            font-size: 1.7rem;
+            color: #33383c;
+            text-transform: none;
+        }
+
+        .book .row form .inputBox h3{
+            font-size: 2rem;
+            padding: 1rem 0;
+            color: #666;
+        }
+
+
+        .tours .box-container .box img{
+            height: 25rem;
+            width: 100%;
+            object-fit: cover;
+        }
+
+
+        .tours .box-container .box .content h3{
+            font-size: 2rem;
+            color: #33383c;
+        }
+
+
+
+        .tours .box-container .box .content p{
+            font-size: 1.7rem;
+            color: #666666;
+            padding: 1rem 0;
+        }
+
+        .tours .box-container .box .content .price span{
+            color: #666666;
+            font-size: 1.5rem;
+            text-decoration: line-through;
+        }
+
+        nav .container-fluid a{
+            font-size: 170%;
+        }
+    </style>
+
+</head>
+<body onload="lastVisit()">
+
+
+<header>
+    <div id="brand">
+        <a href="/" style="font-size: 160%; padding-left: 1.5rem;">Dem<span>AL</span></a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/" style="font-size: 160%;">Home</a></li>
+            <li><a href="/news_general" style="font-size: 160%;">News</a></li>
+            <li><a href="/#book" style="font-size: 160%;">Booking</a></li>
+            <li><a href="/Hacks&Blogs" style="font-size: 160%;">Hacks&Blogs</a></li>
+            <li><a href="/contact_us" style="font-size: 160%;">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+        <ul class="mobile-menu">
+            <li><a href="/" style="font-size: 160%;">Home</a></li>
+            <li><a href="/news_general" style="font-size: 160%;">News</a></li>
+            <li><a href="/#book" style="font-size: 160%;">Booking</a></li>
+            <li><a href="/Hacks&Blogs" style="font-size: 160%;">Hacks&Blogs</a></li>
+            <li><a href="/contact_us" style="font-size: 160%;">Contact</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="wrapper">
+    <h2>Registration</h2>
+    <form id="reg-form" method="post">
+        <div class="input-box">
+            <input type="text" placeholder="Enter Username" required id="username" name="username" autocomplete="off">
+        </div>
+        <div class="input-box">
+            <input type="text" placeholder="Enter City" required id="city" name="city" autocomplete="off">
+        </div>
+        <div class="input-box">
+            <input type="email" placeholder="Enter Email" required id="email" name="email">
+        </div>
+        <div class="input-box">
+            <input type="password" placeholder="Enter Password" required id="password" name="password" autocomplete="off">
+        </div>
+        <div class="policy">
+            <input type="checkbox">
+            <h3>I accept all terms & condition</h3>
+        </div>
+        <div class="input-box button">
+            <input type="submit" value="Sign up">
+        </div>
+        <div class="text">
+            <h3>Already have an account? <a href="/login">Login now</a></h3>
+        </div>
+    </form>
+</div>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    body{
+        /*min-height: 100vh;*/
+        /*display: flex;*/
+        /*align-items: center;*/
+        /*justify-content: center;*/
+
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .wrapper{
+        transform: translate(175%, 25%);
+        position: relative;
+        max-width: 430px;
+        width: 100%;
+        background: #fff;
+        padding: 34px;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .wrapper h2{
+        position: relative;
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
+    }
+    .wrapper h2::before{
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 28px;
+        border-radius: 12px;
+    }
+    .wrapper form{
+        margin-top: 30px;
+    }
+    .wrapper form .input-box{
+        height: 52px;
+        margin: 18px 0;
+    }
+    form .input-box input{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        padding: 0 15px;
+        font-size: 17px;
+        font-weight: 400;
+        color: #333;
+        border: 1.5px solid #C7BEBE;
+        border-bottom-width: 2.5px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    .input-box input:focus,
+    .input-box input:valid{
+        border-color: #4070f4;
+    }
+    form .policy{
+        display: flex;
+        align-items: center;
+    }
+    form h3{
+        color: #707070;
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 10px;
+    }
+    .input-box.button input{
+        color: #fff;
+        letter-spacing: 1px;
+        border: none;
+        background: #4070f4;
+        cursor: pointer;
+    }
+    .input-box.button input:hover{
+        background: #0e4bf1;
+    }
+    form .text h3{
+        color: #333;
+        width: 100%;
+        text-align: center;
+    }
+    form .text h3 a{
+        color: #4070f4;
+        text-decoration: none;
+    }
+    form .text h3 a:hover{
+        text-decoration: underline;
+    }
+</style>
+
+<div class="footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+    const form = document.getElementById('reg-form')
+    form.addEventListener('submit', registerUser)
+
+    async function registerUser(event) {
+        event.preventDefault()
+        const username = document.getElementById('username').value
+        const password = document.getElementById('password').value
+        const city = document.getElementById('city').value
+        const email = document.getElementById('email').value
+
+        const result = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password,
+                city,
+                email
+            })
+        }).then((res) => res.json())
+        if (result.status === 'ok') {
+            alert('User created successfully')
+            window.location.replace('/');
+        } else {
+            alert(result.error)
+        }
+    }
+</script>
+</body>
+</html>

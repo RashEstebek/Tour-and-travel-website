@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DemAl</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!--    LINKS!!!    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"><!--это сслыка на бутстарп-->
+
+
+
+
+
+    <!--    SCRIPTS!!!-->
+
+    <style>
+        .cardWeather {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*height: 100vh;*/
+            height: 600px;
+            max-width: 100%;
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            background: #222;
+            background-image: url('https://source.unsplash.com/1600x900/?landscape');
+            /*background-image: linear-gradient(to bottom,#4c90f4,#3e9eee);*/
+            font-size: 120%;
+        }
+
+        .card {
+            background: #000000d0;
+            color: white;
+            padding: 2em;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 420px;
+            margin: 1em;
+        }
+        .containera {
+            margin-top: 5px
+        }
+
+        .containera .col-lg-4 {
+            display: flex;
+            justify-content: center
+        }
+
+        .card {
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            perspective: 500px;
+            border: none;
+            background-color: inherit
+        }
+
+        .card .face {
+            position: absolute;
+            color: black;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.06);
+            transform-style: preserve-3d;
+            transition: 1s;
+            backface-visibility: hidden;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+        }
+
+        .card .face.front-face,
+        .card .face.back-face {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+        }
+
+        .card .face.front-face .profile {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover
+        }
+
+        .card .face.front-face .name {
+            letter-spacing: 2px
+        }
+
+        .card .face.front-face .designation {
+            font-size: 0.8rem;
+            color: black;
+            letter-spacing: 0.8px
+        }
+
+        .card:hover .face.front-face {
+            transform: rotateY(180deg)
+        }
+
+        .card .face.back-face {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.06);
+            transform: rotateY(180deg);
+            padding: 20px 30px;
+            text-align: center;
+            user-select: none
+        }
+
+        .card .face.back-face .fa-quote-left {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 1.2rem
+        }
+
+        .card .face.back-face .fa-quote-right {
+            position: absolute;
+            bottom: 35px;
+            right: 25px;
+            font-size: 1.2rem
+        }
+
+        .card:hover .face.back-face {
+            transform: rotateY(360deg)
+        }
+
+        @media(max-width: 991.5px) {
+            .col-lg-4 {
+                margin-top: 40px;
+                margin-bottom: 20px
+            }
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            margin: 0.5em;
+            border-radius: 50%;
+            border: none;
+            height: 44px;
+            width: 44px;
+            outline: none;
+            background: #7c7c7c2b;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        input.search-bar {
+            border: none;
+            outline: none;
+            padding: 0.4em 1em;
+            border-radius: 24px;
+            background: #7c7c7c2b;
+            color: white;
+            font-family: inherit;
+            font-size: 105%;
+            width: calc(100% - 100px);
+        }
+
+        button:hover {
+            background: #7c7c7c6b;
+        }
+
+        h1.temp {
+            margin: 0;
+            margin-bottom: 0.4em;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .description {
+            text-transform: capitalize;
+            margin-left: 8px;
+        }
+
+        .weather.loading {
+            visibility: hidden;
+            max-height: 20px;
+            position: relative;
+        }
+
+        .weather.loading:after {
+            visibility: visible;
+            content: "Loading...";
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 20px;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+        :root{
+            --orange:#ffa500;
+        }
+
+        *{
+            font-family: 'Nunito', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            text-transform: capitalize;
+            outline: none; border:none;
+            text-decoration: none;
+            transition: all .2s linear;
+        }
+
+        *::selection{
+            background:var(--orange);
+            color:#fff;
+        }
+
+        html{
+            font-size: 62.5%;
+            overflow-x: hidden;
+            scroll-padding-top: 6rem;
+            scroll-behavior: smooth;
+        }
+
+        section{
+            padding:2rem 9%;
+        }
+
+        .heading{
+            text-align: center;
+            padding:2.5rem 0
+        }
+
+        .heading span{
+            font-size: 3.5rem;
+            background:rgba(255, 165, 0,.2);
+            color:var(--orange);
+            border-radius: .5rem;
+            padding:.2rem 1rem;
+        }
+
+        .heading span.space{
+            background:none;
+        }
+
+        .btn{
+            display: inline-block;
+            margin-top: 1rem;
+            background:var(--orange);
+            color:#fff;
+            padding:.8rem 3rem;
+            border:.2rem solid var(--orange);
+            cursor: pointer;
+            font-size: 1.7rem;
+        }
+
+        .btn:hover{
+            background:rgba(255, 165, 0,.2);
+            color:var(--orange);
+        }
+
+        header{
+            position: fixed;
+            top:0; left: 0; right:0;
+            background:#333;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:2rem 9%;
+        }
+
+        header .logo{
+            font-size: 2.5rem;
+            font-weight: bolder;
+            color:#fff;
+            text-transform: uppercase;
+        }
+
+        header .logo span{
+            color:var(--orange);
+        }
+
+        header .navbar a{
+            color:#fff;
+            font-size: 2rem;
+            margin:0 .8rem;
+        }
+
+        header .navbar a:hover{
+            color:var(--orange);
+        }
+
+        header .icons a{
+            font-size: 2.5rem;
+            color:#fff;
+            cursor: pointer;
+            margin-right: 2rem;
+        }
+
+        header .icons a:hover{
+            color:var(--orange);
+        }
+
+        #menu-bar{
+            color:#fff;
+            border:.1rem solid #fff;
+            border-radius: .5rem;
+            font-size: 3rem;
+            padding:.5rem 1.2rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .home{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+            position: relative;
+            z-index: 0;
+        }
+
+        .home .content{
+            text-align: center;
+        }
+
+        .home .content h3{
+            font-size: 4.5rem;
+            color:#fff;
+            text-transform: uppercase;
+            text-shadow: 0 .3rem .5rem rgba(0,0,0,.1);
+        }
+
+        .home .content p{
+            font-size: 2.5rem;
+            color:#fff;
+            padding:.5rem 0;
+        }
+
+        .home .video-container video{
+            position: absolute;
+            top:0; left: 0;
+            z-index: -1;
+            height: 100%;
+            width:100%;
+            object-fit: cover;
+        }
+
+        .home .controls{
+            padding:1rem;
+            border-radius: 5rem;
+            background:rgba(0,0,0,.7);
+            position: relative;
+            top:10rem;
+        }
+
+        .home .controls .vid-btn{
+            height:2rem;
+            width:2rem;
+            display: inline-block;
+            border-radius: 50%;
+            background:#fff;
+            cursor: pointer;
+            margin:0 .5rem;
+        }
+
+        .home .controls .vid-btn.active{
+            background:var(--orange);
+        }
+
+        .book .row{
+            display: flex;
+            flex-wrap: wrap;
+            gap:1.5rem;
+            align-items: center;
+        }
+
+        .book .row .image{
+            flex:1 1 40rem;
+        }
+
+        .book .row .image img{
+            width:100%;
+        }
+
+        .book .row form{
+            flex:1 1 40rem;
+            padding:2rem;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+            border-radius: .5rem;
+        }
+
+        .book .row form .inputBox{
+            padding:.5rem 0;
+        }
+
+        .book .row form .inputBox input{
+            width:100%;
+            padding:1rem;
+            border:.1rem solid rgba(0,0,0,.1);
+            font-size: 1.7rem;
+            color:#333;
+            text-transform: none;
+        }
+
+        .book .row form .inputBox h3{
+            font-size: 2rem;
+            padding:1rem 0;
+            color:#666;
+        }
+
+        .packages .box-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap:2rem;
+        }
+
+        .packages .box-container .box{
+            flex:1 1 30rem;
+            border-radius: .5rem;
+            overflow: hidden;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+        }
+
+        .packages .box-container .box img{
+            height: 25rem;
+            width:100%;
+            object-fit: cover;
+        }
+
+        .packages .box-container .box .content{
+            padding:2rem;
+        }
+
+        .packages .box-container .box .content h3{
+            font-size:2rem;
+            color:#333;
+        }
+
+        .packages .box-container .box .content h3 i{
+            color:var(--orange);
+        }
+
+        .packages .box-container .box .content p{
+            font-size:1.7rem;
+            color:#666;
+            padding:1rem 0;
+        }
+
+        .packages .box-container .box .content .stars i{
+            font-size:1.7rem;
+            color:var(--orange);
+        }
+
+        .packages .box-container .box .content .price{
+            font-size: 2rem;
+            color:#333;
+            padding-top: 1rem;
+        }
+
+        .packages .box-container .box .content .price span{
+            color:#666;
+            font-size: 1.5rem;
+            text-decoration: line-through;
+        }
+
+        .services .box-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap:1.5rem;
+        }
+
+        .services .box-container .box{
+            flex: 1 1 30rem;
+            border-radius: .5rem;
+            padding:1rem;
+            text-align: center;
+        }
+
+        .services .box-container .box i{
+            padding:1rem;
+            font-size: 5rem;
+            color:var(--orange);
+        }
+
+        .services .box-container .box h3{
+            font-size: 2.5rem;
+            color:#333;
+        }
+
+        .services .box-container .box p{
+            font-size: 1.5rem;
+            color:#666;
+            padding:1rem 0;
+        }
+
+        .services .box-container .box:hover{
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+        }
+
+        .gallery .box-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap:1.5rem;
+        }
+
+        .gallery .box-container .box{
+            overflow: hidden;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+            border:1rem solid #fff;
+            border-radius: .5rem;
+            flex:1 1 30rem;
+            height: 25rem;
+            position: relative;
+        }
+
+        .gallery .box-container .box img{
+            height: 100%;
+            width:100%;
+            object-fit: cover;
+        }
+
+        .gallery .box-container .box .content{
+            position: absolute;
+            top:-100%; left:0;
+            height: 100%;
+            width:100%;
+            text-align: center;
+            background:rgba(0,0,0,.7);
+            padding:2rem;
+            padding-top: 5rem;
+        }
+
+        .gallery .box-container .box:hover .content{
+            top:0;
+        }
+
+        .gallery .box-container .box .content h3{
+            font-size: 2.5rem;
+            color:var(--orange);
+        }
+
+        .gallery .box-container .box .content p{
+            font-size: 1.5rem;
+            color:#eee;
+            padding:.5rem 0;
+        }
+
+        .contact .row{
+            display: flex;
+            flex-wrap: wrap;
+            gap:1.5rem;
+            align-items: center;
+        }
+
+        .contact .row .image{
+            flex:1 1 35rem;
+        }
+
+        .contact .row .image img{
+            width:100%;
+        }
+
+        .contact .row form{
+            flex:1 1 50rem;
+            padding:2rem;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+            border-radius: .5rem;
+        }
+
+        .contact .row form .inputBox{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .contact .row form .inputBox input, .contact .row form textarea{
+            width:49%;
+            margin:1rem 0;
+            padding:1rem;
+            font-size: 1.7rem;
+            color:#333;
+            background:#f7f7f7;
+            text-transform: none;
+        }
+
+        .contact .row form textarea{
+            height: 15rem;
+            resize: none;
+            width:100%;
+        }
+
+        .footer{
+            background:#333;
+        }
+
+        .footer .box-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap:1.5rem;
+        }
+
+        .footer .box-container .box{
+            padding:1rem 0;
+            flex:1 1 25rem;
+        }
+
+        .footer .box-container .box h3{
+            font-size: 2.5rem;
+            padding:.7rem 0;
+            color:#fff;
+        }
+
+        .footer .box-container .box p{
+            font-size: 1.5rem;
+            padding:.7rem 0;
+            color:#eee;
+        }
+
+        .footer .box-container .box a{
+            display: block;
+            font-size: 1.5rem;
+            padding:.7rem 0;
+            color:#eee;
+        }
+
+        .footer .box-container .box a:hover{
+            color:var(--orange);
+            text-decoration: underline;
+        }
+
+        .footer .credit{
+            text-align: center;
+            padding:2rem 1rem;
+            margin-top: 1rem;
+            font-size: 2rem;
+            font-weight: normal;
+            color:#fff;
+            border-top: .1rem solid rgba(255,255,255,.2);
+        }
+
+        .footer .credit span{
+            color:var(--orange);
+        }
+        #map {
+            justify-content: center;
+            align-content: center;
+            height: 400px;
+            width: 100%;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* media queries  */
+
+        @media (max-width:1200px){
+
+            html{
+                font-size: 55%;
+            }
+
+        }
+
+        @media (max-width:991px){
+
+            header{
+                padding:2rem;
+            }
+
+            section{
+                padding:2rem;
+            }
+
+        }
+
+        @media (max-width:768px){
+
+            #menu-bar{
+                display: initial;
+            }
+
+            header .navbar{
+                position: absolute;
+                top:100%; right:0; left: 0;
+                background: #333;
+                border-top: .1rem solid rgba(255,255,255,.2);
+                padding:1rem 2rem;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            }
+
+            header .navbar.active{
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            header .navbar a{
+                display: block;
+                border-radius: .5rem;
+                padding:1.5rem;
+                margin:1.5rem 0;
+                background:#222;
+            }
+
+        }
+
+        @media (max-width:450px){
+
+            html{
+                font-size: 50%;
+            }
+
+            .heading span{
+                font-size: 2.5rem;
+            }
+
+            .contact .row form .inputBox input{
+                width:100%;
+            }
+
+        }
+
+        .inputBookNow {
+            background-color: darkorange;
+            color: white;
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+
+
+<header>
+
+    <div id="menu-bar" class="fas fa-bars"></div>
+
+    <a href="#" class="logo">Dem<span>AL</span></a>
+
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#book">Book</a>
+        <a href="/contact_us">Contact</a>
+        <a href="/news_general">News</a>
+        <a href="/hacks&blogs">Hacks&Blogs</a>
+    </nav>
+    <%if(isAuth==false){%>
+    <div class="icons">
+        <a class="fas fa-user" id="login-btn" href="/login"></a>
+    </div>
+    <%} else{%>
+    <a class="btn" href="/logout">Log Out</a>
+    <%}%>
+</header>
+
+
+
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="container col-xxl-8 px-4 py-5">
+
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="https://files.kazakhstan.travel/files/public/201812/10/22e9cdc997f549e8806caffbb7472a70/bg3.jpg"
+                     class="d-block mx-lg-auto img-fluid" style="border-radius: 30%;" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <div class="lc-block mb-3">
+                    <div editable="rich">
+                        <h2 class="fw-bold display-5">DemAl.kz</h2>
+                    </div>
+                </div>
+
+                <div class="lc-block mb-3">
+                    <div editable="rich">
+                        <p class="lead">Travel to different corners of our land - Kazakhstan</p>
+                    </div>
+                </div>
+
+                <div class="lc-block d-grid gap-2 d-md-flex justify-content-md-start"><a
+                            class="btn btn-primary px-4 me-md-2" href="#book" role="button">Start your journey</a>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+
+<!-- home section ends -->
+
+<hr>
+
+<section>
+    <div class="jumbotron bg-white">
+        <div class="containera" style="margin-top: 2px;">
+            <h2 style="margin-top:20px; text-align: center; font-size: 30px;">Make your travel comfortable and interesting</h2><br><br>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="face front-face"><img
+                                    src="https://www.kopiberi.ru/uploads/images/feature_image/image-102.jpeg"
+                                    class="profile">
+                            <div class="pt-3 text-uppercase name">Step 1</div>
+
+                        </div>
+                        <div class="face back-face">
+                            <div class="testimonial"> Sign up in our website and choose the place you want to visit
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="face front-face"><img
+                                    src="https://www.jartour.ru/_/images/items/tours/149/thmbs/og_003.jpeg"
+                                    class="profile">
+                            <div class="pt-3 text-uppercase name">Step 2</div>
+
+                        </div>
+                        <div class="face back-face">
+                            <div class="testimonial">Go to the booking section and find convenient travel and travel options for yourself
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="face front-face"><img
+                                    src="http://static.ernur.kz/article/5c908d953f43f.jpg"
+                                    class="profile">
+                            <div class="pt-3 text-uppercase name">Step 3</div>
+
+                        </div>
+                        <div class="face back-face">
+                            <div class="testimonial"> Travel for your pleasure without negative emotions using our life hacks and our website. Good luck!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+
+    <h1 class="heading">
+        <span>w</span>
+        <span>e</span>
+        <span>a</span>
+        <span>t</span>
+        <span>h</span>
+        <span>e</span>
+        <span>r</span>
+    </h1>
+</section>
+weather_api
+<div class="cardWeather">
+    <div class="card">
+        <div class="search">
+            <input type="text" class="search-bar" placeholder="Search">
+            <button><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1.5em"
+                         width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                            d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z">
+                    </path>
+                </svg></button>
+        </div>
+        <div class="weather loading">
+            <h2 class="city">Weather in Nur-Sultan</h2>
+            <h1 class="temp">51°C</h1>
+            <div class="flex">
+                <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+                <div class="description">Cloudy</div>
+            </div>
+            <div class="humidity">Humidity: 60%</div>
+            <div class="wind">Wind speed: 6.2 km/h</div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- book section starts  -->
+
+<section class="book" id="book">
+
+    <h1 class="heading">
+        <span>b</span>
+        <span>o</span>
+        <span>o</span>
+        <span>k</span>
+        <span class="space"></span>
+        <span>n</span>
+        <span>o</span>
+        <span>w</span>
+    </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="images/book-img.svg" alt="">
+        </div>
+
+        <form action="">
+            <div class="inputBox">
+                <h3>where to</h3>
+                <input type="text" placeholder="place name">
+            </div>
+            <div class="inputBox">
+                <h3>how many</h3>
+                <input type="number" placeholder="number of guests">
+            </div>
+            <div class="inputBox">
+                <h3>arrivals</h3>
+                <input type="date">
+            </div>
+            <div class="inputBox">
+                <h3>leaving</h3>
+                <input type="date">
+            </div>
+            <input type="submit" class="btn" value="book now">
+        </form>
+
+    </div>
+
+</section>
+
+<!-- book section ends -->
+
+<!-- contact section starts  -->
+
+<!--<section class="contact" id="contact">-->
+
+<!--    <h1 class="heading">-->
+<!--        <span>c</span>-->
+<!--        <span>o</span>-->
+<!--        <span>n</span>-->
+<!--        <span>t</span>-->
+<!--        <span>a</span>-->
+<!--        <span>c</span>-->
+<!--        <span>t</span>-->
+<!--    </h1>-->
+
+<!--    <div class="row">-->
+
+<!--        <div class="col-md-3 text-center" style="font-size: large">-->
+<!--            <ul class="list-unstyled mb-0">-->
+<!--                <li><i class="fas fa-map-marker-alt fa-2x"></i>-->
+<!--                    <p>Astana IT University</p>-->
+<!--                </li>-->
+
+<!--                <li><i class="fas fa-phone mt-4 fa-2x"></i>-->
+<!--                    <p>+ 7 747 231 43 99</p>-->
+<!--                </li>-->
+
+<!--                <li><i class="fas fa-envelope mt-4 fa-2x"></i>-->
+<!--                    <p>211542@astanait.edu.kz</p>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+
+
+<!--        <form id="contact" method="post">-->
+<!--            <div class="inputBox">-->
+<!--                <input type="text" placeholder="name" name="name">-->
+<!--                <input type="email" placeholder="email" name="email">-->
+<!--            </div>-->
+<!--            <div class="inputBox">-->
+<!--                <input type="tel" placeholder="number" name="tel">-->
+<!--                <input type="text" placeholder="subject" name="text">-->
+<!--            </div>-->
+<!--            <textarea placeholder="message" name="message" id="" cols="30" rows="10"></textarea>-->
+<!--            <input type="submit" class="btn" value="send message">-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--</section>-->
+
+<!-- contact section ends -->
+<!--<div id="map"></div>-->
+<section class="packages" id="packages">
+
+    <h1 class="heading">
+        <span>s</span>
+        <span>p</span>
+        <span>e</span>
+        <span>c</span>
+        <span>i</span>
+        <span>a</span>
+        <span>l</span>
+        <span class="space"></span>
+        <span>t</span>
+        <span>o</span>
+        <span>u</span>
+        <span>r</span>
+        <span>s</span>
+    </h1>
+<div class="box-container">
+<%posts.forEach(function(posts){%>
+<div class="box">
+    <img src="<%=posts.title[3].slice(4)%>" alt="">
+    <div class="content">
+        <h3> <i class="fas fa-map-marker-alt"></i> <%=posts.title[0]%> </h3>
+
+        <p><%=posts.title[1]%> </p>
+        <div class="price"> <%=posts.title[2]%>$ <span>$120.00</span> </div>
+        <form action="/pay" method="post">
+            <a href="#" class="btn"><input class="inputBookNow" type="submit" value="book now"></a>
+        </form>
+    </div>
+</div>
+<%})%>
+</div>
+</section>
+
+<!-- footer section  -->
+
+<footer class="bg-grey">
+    <div class="container py-1">
+        <div class="row py-1">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0"><img src="logo.jpg" alt="" width="180" class="mb-3">
+                <p class="font-italic text-muted">Travel extends your horizon.</p>
+                <ul class="list-inline mt-4">
+                    <li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href="#" target="_blank" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                    <li class="list-inline-item"><a href="#" target="_blank" title="vimeo"><i class="fa fa-vimeo"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                <h3 class="text-uppercase font-weight-bold mb-4">Travel</h3>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a href="NewsGeneral.html" class="text-muted">News</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted">Hacks&Blogs</a></li>
+                    <li class="mb-2"><a href="booking.html" class="text-muted">Booking</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted">Contacts</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                <h3 class="text-uppercase font-weight-bold mb-4">Company</h3>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a href="#" class="text-muted">Login</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted">Register</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted">Wishlist</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted">Our Products</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-lg-0">
+                <h3 class="text-uppercase font-weight-bold mb-4">Newsletter</h3>
+                <p class="text-muted mb-4">Travel extends your horizon.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyrights -->
+    <div class="container text-center">
+        <p class="text-muted mb-2">© 2022 DemAl All rights reserved.</p>
+
+    </div>
+    <style>
+        footer{
+            background-color: #33383c;
+            padding:30px 0px;
+            font-size: 150%;
+            position: relative;
+        }
+
+
+        footer ul li{
+            padding:5px 0px;
+        }
+    </style>
+</footer>
+</div>
+<!-- Footer -->
+
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+<!-- custom js file link  -->
+
+<script>
+    let weather = {
+        apiKey: "1fa94dda895025176b2df6cbf3728756",
+        fetchWeather: function (city) {
+            fetch(
+                "https://api.openweathermap.org/data/2.5/weather?q=" +
+                city +
+                "&units=metric&appid=" +
+                this.apiKey
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        alert("No weather found.");
+                        throw new Error("No weather found.");
+                    }
+                    return response.json();
+                })
+                .then((data) => this.displayWeather(data));
+        },
+        displayWeather: function (data) {
+            const { name } = data;
+            const { icon, description } = data.weather[0];
+            const { temp, humidity } = data.main;
+            const { speed } = data.wind;
+            document.querySelector(".city").innerText = "Weather in " + name;
+            document.querySelector(".icon").src =
+                "https://openweathermap.org/img/wn/" + icon + ".png";
+            document.querySelector(".description").innerText = description;
+            document.querySelector(".temp").innerText = temp + "°C";
+            document.querySelector(".humidity").innerText =
+                "Humidity: " + humidity + "%";
+            document.querySelector(".wind").innerText =
+                "Wind speed: " + speed + " km/h";
+            document.querySelector(".weather").classList.remove("loading");
+            document.cardWeather.style.backgroundImage =
+                "url('https://source.unsplash.com/1600x900/?" + name + "')";
+        },
+        search: function () {
+            this.fetchWeather(document.querySelector(".search-bar").value);
+        },
+    };
+
+    document.querySelector(".search button").addEventListener("click", function () {
+        weather.search()
+    });
+
+    document
+        .querySelector(".search-bar")
+        .addEventListener("keyup", function (event) {
+            if (event.key == "Enter") {
+                weather.search();
+            }
+        });
+
+    weather.fetchWeather("Nur-Sultan");
+        function initMap(){
+        var pos={lat:51.090911491012655, lng:71.41829437348726}
+        var  opt={
+        center:pos,
+        zoom:15
+
+    }
+        var map = new google.maps.Map(document.getElementById("map"),opt);
+        const marker = new google.maps.Marker({
+        position:pos ,
+        map: map,
+        title:"Astana IT University",
+    });
+        var info=new google.maps.InfoWindow({
+        content:'<h3>Astana IT University</h3><p>Monday-Saturday</p><endl><p>8:00-21:00</p>'
+    })
+        marker.addListener("click",function(){
+        info.open(map,marker);
+    });
+    }
+</script>
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDG99_3tNbGBCV6qtEjSqwlVPAG7SWKqIw&callback=initMap" async defer>
+</script>
+</html>

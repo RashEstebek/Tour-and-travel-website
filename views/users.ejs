@@ -1,0 +1,599 @@
+<html>
+<head>
+    <title>Users</title>
+    <style>
+
+        *{
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        body{
+            font-family: Helvetica;
+            -webkit-font-smoothing: antialiased;
+            background: white;
+        }
+        h2{
+            text-align: center;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: black;
+            padding: 30px 0;
+        }
+
+        /* Table Styles */
+
+        .table-wrapper{
+            margin: 10px 70px 70px;
+            box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+        }
+
+        .fl-table {
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: normal;
+            border: none;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            white-space: nowrap;
+            background-color: white;
+        }
+
+        .fl-table td, .fl-table th {
+            text-align: center;
+            padding: 8px;
+        }
+
+        .fl-table td {
+            border-right: 1px solid #f8f8f8;
+            font-size: 12px;
+        }
+
+        .fl-table thead th {
+            color: #ffffff;
+            background: #4784b2;
+        }
+
+
+        .fl-table thead th:nth-child(odd) {
+            color: #ffffff;
+            background: #324960;
+        }
+
+        .fl-table tr:nth-child(even) {
+            background: #F8F8F8;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 767px) {
+            .fl-table {
+                display: block;
+                width: 100%;
+            }
+            .table-wrapper:before{
+                content: "Scroll horizontally >";
+                display: block;
+                text-align: right;
+                font-size: 11px;
+                color: white;
+                padding: 0 0 10px;
+            }
+            .fl-table thead, .fl-table tbody, .fl-table thead th {
+                display: block;
+            }
+            .fl-table thead th:last-child{
+                border-bottom: none;
+            }
+            .fl-table thead {
+                float: left;
+            }
+            .fl-table tbody {
+                width: auto;
+                position: relative;
+                overflow-x: auto;
+            }
+            .fl-table td, .fl-table th {
+                padding: 20px .625em .625em .625em;
+                height: 60px;
+                vertical-align: middle;
+                box-sizing: border-box;
+                overflow-x: hidden;
+                overflow-y: auto;
+                width: 120px;
+                font-size: 13px;
+                text-overflow: ellipsis;
+            }
+            .fl-table thead th {
+                text-align: left;
+                border-bottom: 1px solid #f7f7f9;
+            }
+            .fl-table tbody tr {
+                display: table-cell;
+            }
+            .fl-table tbody tr:nth-child(odd) {
+                background: none;
+            }
+            .fl-table tr:nth-child(even) {
+                background: transparent;
+            }
+            .fl-table tr td:nth-child(odd) {
+                background: #F8F8F8;
+                border-right: 1px solid #E6E4E4;
+            }
+            .fl-table tr td:nth-child(even) {
+                border-right: 1px solid #E6E4E4;
+            }
+            .fl-table tbody td {
+                display: block;
+                text-align: center;
+            }
+        }
+        header a{
+            text-decoration: none;
+        }
+
+        header{
+            padding: 0 20px;
+            background-color: #33383c;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #brand {
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        #brand a{
+            color: white;
+        }
+        #brand a span{
+            color: darkorange;
+        }
+
+        header ul {
+            list-style: none;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        header ul a {
+            color: white;
+        }
+
+        header ul li {
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        header ul li:hover {
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+
+        #signup a {
+            color: #ff3860;
+        }
+
+        #login a {
+            color: black;
+        }
+
+        #hamburger-icon {
+            margin: auto 0;
+            display: none;
+            cursor: pointer;
+        }
+
+        #hamburger-icon div {
+            width: 35px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .open .mobile-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            height: calc(100vh - 50px);
+            width: 100%;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 10px;
+        }
+
+        html{
+            overflow-x: hidden;
+            scroll-padding-top: 6rem;
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body{
+            height: 200rem;
+            margin: 0;
+        }
+
+        .home .content h3{
+            font-size: 6.5rem;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            text-shadow: 0 .3rem .5rem black;
+        }
+
+        .home .video-container video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .heading span{
+            font-size: 3.5rem;
+            background: rgba(255,155,0,.2);
+            color: cornflowerblue;
+            border-radius: .5rem;
+            padding: .2rem 1rem;
+        }
+
+
+        .home .content p{
+            font-size: 2.5rem;
+            color: #FFFFFF;
+            padding: .5rem 0;
+        }
+
+        .btn{
+            display: inline-block;
+            background: cornflowerblue;
+            color: #FFFFFF;
+            padding: .6rem 3rem;
+            cursor: pointer;
+            font-size: 1.7rem;
+        }
+
+        section{
+            padding: 2rem 9%;
+        }
+
+
+        .book .row .img img{
+            width: 100%;
+            height: 500px;
+        }
+
+        .book .row form{
+            flex: 1 1 40rem;
+            padding: 2rem;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+            border-radius: .5rem;
+        }
+
+
+        .book .row form .inputBox input{
+            width: 100%;
+            padding: 1rem;
+            border: .1rem solid rgba(0,0,0,.1);
+            font-size: 1.7rem;
+            color: #33383c;
+            text-transform: none;
+        }
+
+        .book .row form .inputBox h3{
+            font-size: 2rem;
+            padding: 1rem 0;
+            color: #666;
+        }
+
+
+        .tours .box-container .box img{
+            height: 25rem;
+            width: 100%;
+            object-fit: cover;
+        }
+
+
+        .tours .box-container .box .content h3{
+            font-size: 2rem;
+            color: #33383c;
+        }
+
+
+
+        .tours .box-container .box .content p{
+            font-size: 1.7rem;
+            color: #666666;
+            padding: 1rem 0;
+        }
+
+        .tours .box-container .box .content .price span{
+            color: #666666;
+            font-size: 1.5rem;
+            text-decoration: line-through;
+        }
+
+        nav .container-fluid a{
+            font-size: 170%;
+        }
+
+         * {
+             box-sizing: border-box;
+         }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+            font-size: 20px;
+        }
+
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 13px 19px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body onload="AdminChecker">
+
+<header>
+    <div id="brand">
+        <a href="#" style="font-size: 160%; padding-left: 1.5rem;">Dem<span>AL</span></a>
+    </div>
+    <nav>
+        <ul>
+<!--            <li><a href="../api/indexFull2.html" style="font-size: 160%;">Home</a></li>-->
+            <li><a href="/news_general" style="font-size: 160%;">News</a></li>
+<!--            <li><a href="/#book" style="font-size: 160%;">Booking</a></li>-->
+            <li><a href="/Hacks&Blogs" style="font-size: 160%;">Hacks&Blogs</a></li>
+            <li><a href="/contact_us" style="font-size: 160%;">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+        <ul class="mobile-menu">
+            <li><a href="/" style="font-size: 160%;">Home</a></li>
+            <li><a href="/news_general" style="font-size: 160%;">News</a></li>
+            <li><a href="/#book" style="font-size: 160%;">Booking</a></li>
+            <li><a href="/Hacks&Blogs" style="font-size: 160%;">Hacks&Blogs</a></li>
+            <li><a href="/contact_us" style="font-size: 160%;">Contact</a></li>
+        </ul>
+    </div>
+</header>
+
+
+
+
+<h2>List of users</h2>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>User</th>
+            <th>City</th>
+            <th>Email</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%users.forEach(users=>{%>
+        <tr>
+            <td id="username"><%=users.username %></td>
+            <td><%=users.city %></td>
+            <td><%=users.email %></td>
+            <td><a href="/user/delete/<%=users.username%>">delete</a></td>
+            <td><a href="/user/edit/<%=users.username%>">edit</a></td>
+
+        </tr>
+        <%})
+        %>
+        <tbody>
+    </table>
+</div>
+<div class="editBtn">
+    <button class="btnMiddle"><a href="/user/add">Add user</a></button>
+    <button class="btnMiddle"><a href="/logout">Log out</a></button>
+</div>
+
+<div class="container">
+    <%messages.forEach(messages=>{%>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><small class="text-muted">Name:</small><%=messages.name%></h5>
+                <p class="card-text text-muted"><small><%=messages.tel%>, <%=messages.email%></small></p>
+                <hr>
+                <h6 class="card-title"><%= messages.text%></h6>
+                <p class="card-text"><%= messages.message%></p>
+                </div>
+        </div>
+    <%})%>
+</div>
+
+<h2>Please add a new tour </h2>
+
+<div class="container-fluid">
+    <form method="POST" onsubmit="return doPost(this);">
+        <div class="row">
+            <div class="col-25">
+                <label>Title</label>
+            </div>
+            <div class="col-75">
+                <input name="title" class="form-control" placeholder="Title"/>
+            </div>
+        </div>
+        <button class = "btn btn-primary btn" data-bs-toggle = "modal" data-bs-target ="#myModal" type="button">
+            Upload image
+        </button>
+        <div class="row">
+            <div class="col-25">
+                <label>Content</label>
+            </div>
+            <div class="col-75">
+                <textarea name="title" class="form-control" placeholder="Content"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label>Price</label>
+            </div>
+            <div class="col-75">
+                <input name="title" class="form-control" placeholder="Price" type="number"></input>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-info" value="Post"/>
+
+    </form>
+</div>
+
+<!-- Modal -->
+<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog"
+     aria-labelledby = "myModalLabel" aria-hidden = "true">
+
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+
+            <div class = "modal-header">
+
+                <h4 class = "modal-title" id = "myModalLabel">
+                    Upload image
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class = "modal-body">
+
+                <form method="POST" enctype="multipart/form-data" id="form-upload">
+                    <div class="form-group">
+                        <input type="file" name="file" class="form-control"/>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Upload"/>
+                </form>
+            </div>
+
+            <div class = "modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                <button type = "button" class = "btn btn-primary">
+                    Submit changes
+                </button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</div><!-- /.modal -->
+
+<script>
+    var imagePath="";
+    $("#form-upload").on("submit",function(e){
+        console.log("AAA")
+        e.preventDefault();
+        $.ajax({
+            url:"/do-upload-image",
+            method:"POST",
+            data:new FormData(this),
+            contentType:false,
+            cache:false,
+            processData:false,
+            success:function(response){
+                imagePath=response;
+                $("#myModal").modal("hide");
+            }
+
+        })
+    })
+    function doPost(form){
+        $.ajax({
+            url:"/users",
+            method:"POST",
+            data:{title:form.title.value,
+                content:form.content.value,
+                image:imagePath},
+            success:function (response){
+                alert(response)
+            }
+        });
+        return false;
+    }
+</script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
+</html>

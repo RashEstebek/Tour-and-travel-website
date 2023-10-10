@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>res.render() Demo</title>
+</head>
+<body>
+<div class="main">
+    <div class="userForm">
+        <h1>User Add</h1>
+        <form action="" method="post">
+            <p>Name</p>
+            <input name="username">
+            <p>City</p>
+            <input name="city">
+            <p>Email</p>
+            <input name="email">
+            <input type="submit">
+        </form>
+    </div>
+</div>
+</body>
+<style>
+    * {
+        font-family: sans-serif;
+    }
+    .userForm{
+        font-size: 32px;
+        font-weight: 500;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+    .userForm form {
+       margin-top: 40px;
+        border-radius: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding-bottom: 15px;
+        background-color: #009879;
+
+    }
+    .userForm form input{
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+    .userForm form p{
+        color: white;
+        font-weight: 400;
+        font-size:16px;
+    }
+</style>
+</html>
